@@ -4,7 +4,7 @@ import { TryCatch } from "../utils/TryCatch.js";
 import ErrorHandler from "../utils/utility-class.js";
 
 // Middleware to make sure only admin is allowed
-export const adminOnly = TryCatch(async (req, res, next) => {
+export const verifyAdmin = TryCatch(async (req, res, next) => {
     const { id } = req.query;
 
     if (!id) return next(new ErrorHandler("user not login", 401));

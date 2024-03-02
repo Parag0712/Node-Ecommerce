@@ -1,6 +1,6 @@
 import { Router } from "express"
 import {createUser, deleteUser, getAllUsers, getUser} from "../controllers/user.controllers.js";
-import { app } from "../app.js";
+import { verifyAdmin } from "../middlewares/admin.middleware.js";
 
 const router  = Router();
 // Route - /api/v1/users/createUser
@@ -16,7 +16,7 @@ router.route("/getAllUsers").get(getUser);
 router.route("/getUser/:id").get(getUser); 
 
 // Route - /api/v1/users/deleteUser/id
-router.route("/deleteUser/:id").delete(deleteUser); 
+router.route("/deleteUser/:id").delete(verifyAdmin,deleteUser); 
 
 // router.route("/:id").get(getUser).delete(deleteUser)
 
