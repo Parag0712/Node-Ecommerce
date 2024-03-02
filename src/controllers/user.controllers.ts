@@ -4,7 +4,14 @@ import { NewUserRequestBody } from '../types/types.js';
 import { User } from '../models/user.model.js';
 import ErrorHandler from '../utils/utility-class.js';
 
+// validateField
+function validateField(fieldName: string, value: any, next: NextFunction) {
+    if (!value || value.trim() === "") {
+        return next(new ErrorHandler(`${fieldName} is required`, 400));
+    }
+}
 
+// CreateUser
 export const createUser = TryCatch(async (
     req: Request<{}, {}, NewUserRequestBody>,
     res: Response,
@@ -13,34 +20,22 @@ export const createUser = TryCatch(async (
     const { _id, dob, email, gender, name, photoUrl } = req.body;
 
     let user = await User.findById(_id);
-    console.log(user);
-    
+    validateField("User ID", _id, next);
+
     // Check User Exist 
     if (user) {
         return res.status(201).json({
             success: true,
-            user:user,
+            user: user,
             message: `Welcome back, ${user.name}! You're now logged in successfully. 🎉`
         })
     }
-    if (!_id || _id.trim() === "") {
-        return next(new ErrorHandler("User ID is required", 400));
-    }
-    if (!name || name.trim() === "") {
-        return next(new ErrorHandler("Name is required", 400));
-    }
-    if (!email || email.trim() === "") {
-        return next(new ErrorHandler("Email is required", 400));
-    }
-    if (!photoUrl || photoUrl.trim() === "") {
-        return next(new ErrorHandler("Photo URL is required", 400));
-    }
-    if (!gender || gender.trim() === "") {
-        return next(new ErrorHandler("Gender is required", 400));
-    }
-    if (!dob) {
-        return next(new ErrorHandler("Date of birth is required", 400));
-    }
+
+    validateField("Name", name, next);
+    validateField("Email", email, next);
+    validateField("Photo URL", photoUrl, next);
+    validateField("Gender", gender, next);
+    validateField("Date of birth", dob, next);
 
     user = await User.create({
         _id,
@@ -51,13 +46,35 @@ export const createUser = TryCatch(async (
         dob: new Date(dob)
     });
 
-    
-
-
     return res.status(201).json({
         success: true,
-        user:user,
+        user: user,
         message: `Welcome back, ${user.name}! You're now logged in successfully. 🎉`
     })
 
 })
+
+// getAllUsers
+export const getAllUsers = TryCatch(async (req, res, next) => {
+    const users = await User.find({});
+    return res.status(200).json({
+        success: true,
+        user: users,
+    });
+});
+
+// getUser
+export const getUser = TryCatch(async (req, res, next) => {
+    const id = req.params.id;
+    const user = await User.findById(id);
+
+    if (!user) return next(new ErrorHandler("Invalid Id", 400));
+
+    return res.status(200).json({
+        success: true,
+        user,
+    });
+});
+
+
+
