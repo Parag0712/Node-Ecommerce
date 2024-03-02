@@ -7,7 +7,7 @@ const router  = Router();
 router.route("/createUser").post(createUser); 
 
 // Route - /api/v1/users/getAllUsers
-router.route("/getAllUsers").get(getAllUsers); 
+router.route("/getAllUsers").get(verifyAdmin,getAllUsers); 
 
 // Route - /api/v1/users/getAllUsers
 router.route("/getAllUsers").get(getUser); 
