@@ -2,17 +2,17 @@ import { timeStamp } from "console";
 import mongoose from "mongoose";
 import validator from 'validator'
 interface IUser extends Document{
-    _id:string,
-    name:string,
-    email:string,
-    photoUrl:string,
-    role:"admin" | "user",
-    gender:"male" | "female",
-    dob:Date,
-    createdAt:Date,
-    updatedAt:Date
+    _id:string;
+    name:string;
+    email:string;
+    photoUrl:string;
+    role:"admin" | "user";
+    gender:"male" | "female";
+    dob:Date;
+    createdAt:Date;
+    updatedAt:Date;
     // virtual attributes
-    age:number,
+    age:number;
 }
 
 // User Schema

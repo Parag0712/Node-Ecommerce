@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import ErrorHandler from "./utility-class.js";
+import ErrorHandler from "../utils/utility-class.js";
 
-export const ApiError = (
+export const errorMiddleware = (
     err: ErrorHandler,
     req: Request,
     res: Response,
@@ -18,4 +18,4 @@ export const ApiError = (
     });
 };
 
-export default ApiError
+export default errorMiddleware
