@@ -13,7 +13,6 @@ export type InvalidateCacheProps = {
     productId?:string | string[];
 };
 
-
 // User Data
 export interface NewUserRequestBody {
     _id: string;
@@ -31,6 +30,8 @@ export interface NewProductRequestBody {
     price: number;
     stock: number;
 }
+
+// SearchRequestQuery
 export interface SearchRequestQuery {
     search?: string;
     price?: string;
@@ -39,6 +40,7 @@ export interface SearchRequestQuery {
     page?: string;
 }
 
+// BaseQuery
 export interface BaseQuery {
     name?: {
         $regex: string;
@@ -48,3 +50,7 @@ export interface BaseQuery {
     category?: string;
 }
 
+// NewOrderRequestBody
+export interface NewOrderRequestBody{
+    
+}

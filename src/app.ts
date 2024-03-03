@@ -5,6 +5,7 @@ import NodeCache from 'node-cache';
 
 import userRoute from './routes/user.route.js';
 import productRoute from './routes/product.route.js';
+import orderRoute from './routes/order.route.js';
 
 import { errorMiddleware } from './middlewares/error.middleware.js';
 
@@ -21,6 +22,7 @@ app.use(cors());
 
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/product", productRoute);
+app.use("/api/v1/order", orderRoute);
 
 app.use("/uploads", express.static("uploads"));
 
