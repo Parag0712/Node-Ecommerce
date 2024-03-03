@@ -6,6 +6,14 @@ export type ControllerType = (
     next: NextFunction
 ) => Promise<void | Response<any, Record<string, any>>>;
 
+export type InvalidateCacheProps = {
+    product?: boolean;
+    order?: boolean;
+    admin?: boolean;
+    productId?:string | string[];
+};
+
+
 // User Data
 export interface NewUserRequestBody {
     _id: string;
@@ -17,26 +25,26 @@ export interface NewUserRequestBody {
 }
 
 // Product Data
-export interface NewProductRequestBody{
-    name:string,
-    category:string,
-    price:number,
-    stock:number
+export interface NewProductRequestBody {
+    name: string;
+    category: string;
+    price: number;
+    stock: number;
 }
-export interface SearchRequestQuery{
-    search?:string,
-    price?:string,
-    category?:string,
-    sort?:string,
-    page?:string
+export interface SearchRequestQuery {
+    search?: string;
+    price?: string;
+    category?: string;
+    sort?: string;
+    page?: string;
 }
 
-
-export interface BaseQuery{
-    name?:{
-        $regex:string,
-        $options:string
+export interface BaseQuery {
+    name?: {
+        $regex: string;
+        $options: string;
     };
-    price?:{$lte:number};
-    category?:string
+    price?: { $lte: number };
+    category?: string;
 }
+
