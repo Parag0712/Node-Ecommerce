@@ -37,7 +37,6 @@ const orderSubSchema = new mongoose.Schema({
     }
 });
 
-
 const schema = new mongoose.Schema({
     shippingInfo: shippingSubSchema,
     user: {
