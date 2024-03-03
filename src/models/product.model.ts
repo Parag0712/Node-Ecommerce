@@ -23,8 +23,6 @@ const schema = new mongoose.Schema({
         trim:true,
         required: [true, "Stock is required"],
     },
-}, {
-    timestamps: true
-});
+}, { timestamps: true });
 
 export const Product = mongoose.model("Product", schema);

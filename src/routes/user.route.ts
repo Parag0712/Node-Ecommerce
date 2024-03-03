@@ -3,6 +3,7 @@ import {createUser, deleteUser, getAllUsers, getUser} from "../controllers/user.
 import { verifyAdmin } from "../middlewares/admin.middleware.js";
 
 const router  = Router();
+
 // Route - /api/v1/users/createUser
 router.route("/createUser").post(createUser); 
 
