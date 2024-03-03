@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { TryCatch } from '../utils/TryCatch.js';
 import { NewUserRequestBody } from '../types/types.js';
 import { User } from '../models/user.model.js';
-import ErrorHandler from '../utils/utility-class.js';
+import ErrorHandler from '../utils/ErrorHandler.js';
 
 // validateField
 function validateField(fieldName: string, value: any, next: NextFunction) {

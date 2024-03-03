@@ -1,7 +1,7 @@
 
 import { User } from "../models/user.model.js";
 import { TryCatch } from "../utils/TryCatch.js";
-import ErrorHandler from "../utils/utility-class.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
 
 // Middleware to make sure only admin is allowed
 export const verifyAdmin = TryCatch(async (req, res, next) => {

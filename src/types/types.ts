@@ -50,6 +50,7 @@ export interface BaseQuery {
     category?: string;
 }
 
+// OrderItemType
 export type OrderItemType={
     name:string,
     photo:string,
@@ -57,6 +58,8 @@ export type OrderItemType={
     quantity:number,
     productId:string
 }
+
+//ShippingInfoType 
 export type ShippingInfoType={
     address:string,
     city:string,
@@ -67,7 +70,7 @@ export type ShippingInfoType={
 
 // NewOrderRequestBody
 export type NewOrderRequestBody={
-    shippingInfo:string,
+    shippingInfo:ShippingInfoType,
     user:string,
     subtotal:number,
     tax:number,

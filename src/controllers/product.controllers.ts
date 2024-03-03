@@ -1,12 +1,11 @@
 import { BaseQuery, NewProductRequestBody, SearchRequestQuery } from "../types/types.js";
 import { TryCatch } from "../utils/TryCatch.js";
 import { NextFunction, Request } from 'express';
-import ErrorHandler from "../utils/utility-class.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
 import { Product } from "../models/product.model.js";
 import { rm } from "fs";
 import { nodeCache } from "../app.js";
-import { invalidateCache } from "../utils/CacheClear.js";
-
+import { invalidateCache } from "../utils/utility-class.js";
 
 // import { faker } from "@faker-js/faker";
 
@@ -41,7 +40,7 @@ export const addProduct = TryCatch(async (req: Request<{}, {}, NewProductRequest
             console.log("deleted");
         })
     }
-    invalidateCache({product:true})
+    invalidateCache({product:true,admin:true})
 
     return res.status(201).json({
         success: true,
@@ -153,7 +152,7 @@ export const updateProduct = TryCatch(async (req, res, next) => {
 
     await product.save();
 
-    invalidateCache({product:true,productId:String(product._id)});
+    invalidateCache({product:true,productId:String(product._id),admin:true});
     
     return res.status(201).json({
         success: true,
@@ -174,7 +173,7 @@ export const deleteProduct = TryCatch(async (req, res, next) => {
 
     await product.deleteOne();
 
-    invalidateCache({product:true,productId:String(product._id)});
+    invalidateCache({product:true,productId:String(product._id),admin:true});
 
     return res.status(200).json({
         success: true,
