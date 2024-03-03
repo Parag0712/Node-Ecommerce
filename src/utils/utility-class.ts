@@ -8,6 +8,8 @@ export const invalidateCache = ({
     admin,
     order,
     productId,
+    userId,
+    orderId,
 }: InvalidateCacheProps) => {
     // If Product 
     if (product) {
@@ -22,16 +24,26 @@ export const invalidateCache = ({
         }
         nodeCache.del(productKeys);
     }
+
+    // order
+    if (order) {
+        const ordersKeys: string[] = [
+            "all-orders",
+            `my-orders-${userId}`,
+            `order-${orderId}`,
+        ];
+        nodeCache.del(ordersKeys);
+    }
 }
 
 // for reduce stock when place order
-export const reduceStock = async (orderItems:OrderItemType[])=>{
+export const reduceStock = async (orderItems: OrderItemType[]) => {
     for (let i = 0; i < orderItems.length; i++) {
         const order = orderItems[i];
         const product = await Product.findById(order.productId);
         console.log(product);
         if (!product) throw new Error("Product Not Found");
         product.stock -= order.quantity,
-        await product.save();
+            await product.save();
     }
 }   
