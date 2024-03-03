@@ -34,7 +34,7 @@ const schema = new mongoose.Schema({
         required: [true, "Email is required"],
         validate: validator.default.isEmail
     },
-    photoUrl: {
+    photo: {
         type: String,
         required: [true, "Photo is required"]
     },

@@ -17,7 +17,7 @@ export const createUser = TryCatch(async (
     res: Response,
     next: NextFunction
 ) => {
-    const { _id, dob, email, gender, name, photoUrl } = req.body;
+    const { _id, dob, email, gender, name, photo } = req.body;
 
     let user = await User.findById(_id);
     validateField("User ID", _id, next);
@@ -33,7 +33,7 @@ export const createUser = TryCatch(async (
 
     validateField("Name", name, next);
     validateField("Email", email, next);
-    validateField("Photo URL", photoUrl, next);
+    validateField("Photo URL", photo, next);
     validateField("Gender", gender, next);
     validateField("Date of birth", dob, next);
 
@@ -42,7 +42,7 @@ export const createUser = TryCatch(async (
         name,
         email,
         gender,
-        photoUrl,
+        photo,
         dob: new Date(dob)
     });
 
