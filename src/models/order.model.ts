@@ -1,6 +1,7 @@
 import mongoose, { mongo } from "mongoose";
+import { NewOrderRequestBody, OrderItemType, ShippingInfoType } from "../types/types.js";
 
-// SubSchema
+// shippingSubSchema
 const shippingSubSchema = new mongoose.Schema({
     address: {
         type: String,
@@ -24,6 +25,7 @@ const shippingSubSchema = new mongoose.Schema({
     },
 })
 
+// orderSubSchema
 const orderSubSchema = new mongoose.Schema({
     name:String,
     photo:String,
@@ -34,6 +36,7 @@ const orderSubSchema = new mongoose.Schema({
         ref:"Product"
     }
 });
+
 
 const schema = new mongoose.Schema({
     shippingInfo: shippingSubSchema,
@@ -52,7 +55,7 @@ const schema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    shippingCharge: {
+    shippingCharges: {
         type: Number,
         required: true,
     },
