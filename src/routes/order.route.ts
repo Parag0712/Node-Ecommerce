@@ -4,7 +4,7 @@ import { verifyAdmin } from "../middlewares/admin.middleware.js";
 
 const router = Router();
 
-//For addProduct- /api/v1/order/addOrder
+//For addOrder- /api/v1/order/addOrder
 router.route("/addOrder").post(addOrder);
 
 //For myOrders - /api/v1/order/myOrder
