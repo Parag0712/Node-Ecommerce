@@ -2,6 +2,7 @@ class ErrorHandler extends Error {
     public code?: number;
     public keyPattern?: {
         email:number
+        code:number
     };
     constructor(public message: string, public statusCode: number) {
         super(message);

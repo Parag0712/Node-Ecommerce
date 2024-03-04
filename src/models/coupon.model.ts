@@ -12,4 +12,4 @@ const schema = new mongoose.Schema({
     },
 })
 
-const Coupon = mongoose.model("Coupon", schema);
+export const Coupon = mongoose.model("Coupon", schema);

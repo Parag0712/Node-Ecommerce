@@ -13,7 +13,9 @@ export const errorMiddleware = (
     if (err.code === 11000 && err.keyPattern?.email === 1) {
         err.message = "Email address already exists";
     }
-
+    if (err.code === 11000 && err.keyPattern?.code === 1) {
+        err.message = "Coupon already exists";
+    }
     return res.status(err.statusCode).json({
         success: false,
         message: err.message,
