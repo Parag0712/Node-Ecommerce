@@ -11,6 +11,11 @@ import dashboardRoute from './routes/dashboard.routes.js';
 
 import { errorMiddleware } from './middlewares/error.middleware.js';
 import Stripe from 'stripe';
+import { config } from 'dotenv';
+
+config({
+    path: "./.env"
+})
 
 const stripeKey = process.env.STRIPE_API_KEY|| "";
 export const app = express();
