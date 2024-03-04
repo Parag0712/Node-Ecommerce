@@ -1,6 +1,21 @@
+import { stripe } from "../app.js";
 import { Coupon } from "../models/coupon.model.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 import { TryCatch } from "../utils/TryCatch.js";
+
+export const createPaymentIntent = TryCatch(async (req, res, next) => {
+    const { amount } = req.body;
+    if (!amount) return next(new ErrorHandler("Please enter amount", 400));
+
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: Number(amount) * 100,
+        currency: "inr",
+    });
+    return res.status(201).json({
+        success: true,
+        clientSecret: paymentIntent.client_secret,
+    });
+})
 
 // For Add New Coupon
 export const addCoupon = TryCatch(async (req, res, next) => {
@@ -52,7 +67,7 @@ export const allCoupons = TryCatch(async (req, res, next) => {
 export const deleteCoupon = TryCatch(async (req, res, next) => {
     const { couponId } = req.params;
 
-    if(!couponId) return next(new ErrorHandler("couponId is required",400));
+    if (!couponId) return next(new ErrorHandler("couponId is required", 400));
     const coupon = await Coupon.findByIdAndDelete(couponId);
 
     if (!coupon) return next(new ErrorHandler("Invalid Coupon ID", 400));

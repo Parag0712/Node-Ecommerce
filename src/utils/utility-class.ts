@@ -34,6 +34,14 @@ export const invalidateCache = ({
         ];
         nodeCache.del(ordersKeys);
     }
+    if(admin){
+        nodeCache.del([
+            "admin-stats",
+            "admin-pie-charts",
+            "admin-bar-charts",
+            "admin-line-charts",
+    ]);
+    }
     
 }
 

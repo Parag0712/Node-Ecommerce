@@ -10,8 +10,11 @@ import paymentRoute from './routes/payment.route.js';
 import dashboardRoute from './routes/dashboard.routes.js';
 
 import { errorMiddleware } from './middlewares/error.middleware.js';
+import Stripe from 'stripe';
 
+const stripeKey = process.env.STRIPE_API_KEY|| "";
 export const app = express();
+export const stripe = new Stripe(stripeKey);
 export const nodeCache = new NodeCache();
 
 app.get('/', (req, res) => {

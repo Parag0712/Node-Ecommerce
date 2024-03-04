@@ -26,8 +26,6 @@ export const getInventories = async ({ categories, productsCount }: {
     return categoryCounts;
 }
 
-
-
 export const getChartData = ({
     length,
     docArr,
@@ -41,7 +39,7 @@ export const getChartData = ({
 }) => {
     const data: number[] = new Array(length).fill(0);
 
-    docArr.forEach((i:any) => {
+    docArr.forEach((i: any) => {
         // Extract relevant properties from Document object
         const { createdAt } = i;
         const creationDate = new Date(createdAt); // Ensure createdAt is a Date object
