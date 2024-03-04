@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { verifyAdmin } from "../middlewares/admin.middleware.js";
-import { getBar, getDashboardStats, getLine, getPie } from "../controllers/dashboard.controllers.js";
+import { getBar, getDashboardStats, getLine, getPieCharts } from "../controllers/dashboard.controllers.js";
 
 const router = Router();
 
@@ -8,7 +8,7 @@ const router = Router();
 router.route("/getStats").get(verifyAdmin, getDashboardStats);
 
 //For getPie- /api/v1/dashboard/getPie?id=11
-router.route("/getPie").get(verifyAdmin, getPie);
+router.route("/getPie").get(verifyAdmin, getPieCharts);
 
 //For getPie- /api/v1/dashboard/getBar?id=11
 router.route("/getBar").get(verifyAdmin, getBar);
