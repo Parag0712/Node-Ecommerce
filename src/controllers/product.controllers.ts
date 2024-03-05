@@ -40,7 +40,7 @@ export const addProduct = TryCatch(async (req: Request<{}, {}, NewProductRequest
             console.log("deleted");
         })
     }
-    invalidateCache({product:true,admin:true})
+    invalidateCache({ product: true, admin: true })
 
     return res.status(201).json({
         success: true,
@@ -51,14 +51,14 @@ export const addProduct = TryCatch(async (req: Request<{}, {}, NewProductRequest
 
 // latestProduct Revalidate on New,Update,Delete,Product & new Order
 export const latestProduct = TryCatch(async (req, res, next) => {
-
+    const { limit } = req.query || 10;
     let products = [];
     // Node Cache
     if (nodeCache.has("latest-products")) {
         products = JSON.parse(nodeCache.get("latest-products") as string)
     } else {
         // 1 mean asc -1 desc
-        products = await Product.find({}).sort({ createdAt: -1 }).limit(10);
+        products = await Product.find({}).sort({ createdAt: -1 }).limit(Number(limit));
         nodeCache.set("latest-products", JSON.stringify(products));
     }
 
@@ -153,11 +153,11 @@ export const updateProduct = TryCatch(async (req, res, next) => {
     await product.save();
 
     invalidateCache({
-        product:true,
-        productId:String(product._id),
-        admin:true
+        product: true,
+        productId: String(product._id),
+        admin: true
     });
-    
+
     return res.status(201).json({
         success: true,
         product: product,
@@ -178,9 +178,9 @@ export const deleteProduct = TryCatch(async (req, res, next) => {
     await product.deleteOne();
 
     invalidateCache({
-        product:true,
-        productId:String(product._id),
-        admin:true
+        product: true,
+        productId: String(product._id),
+        admin: true
     });
 
     return res.status(200).json({
