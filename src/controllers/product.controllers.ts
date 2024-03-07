@@ -51,14 +51,14 @@ export const addProduct = TryCatch(async (req: Request<{}, {}, NewProductRequest
 
 // latestProduct Revalidate on New,Update,Delete,Product & new Order
 export const latestProduct = TryCatch(async (req, res, next) => {
-    const { limit } = req.query || 10;
+    const limit = Number(req.query.limit) || 1
     let products = [];
     // Node Cache
     if (nodeCache.has("latest-products")) {
         products = JSON.parse(nodeCache.get("latest-products") as string)
     } else {
         // 1 mean asc -1 desc
-        products = await Product.find({}).sort({ createdAt: -1 }).limit(Number(limit));
+        products = await Product.find({}).sort({ createdAt: -1 }).limit(limit);
         nodeCache.set("latest-products", JSON.stringify(products));
     }
 
@@ -236,13 +236,29 @@ export const searchProduct = TryCatch(async (req: Request<{}, {}, {}, SearchRequ
 })
 
 
+// export const update = async () => {
+
+//     const filter = { "photo": { $regex: "\\\\" } }; // Find documents where photo field contains double backslashes
+//     const updateOperation = [
+//         {
+//             $set: {
+//                 "photo": { $replaceAll: { input: "$photo", find: "\\\\", replacement: "\\" } }
+//             }
+//         }
+//     ];
+//     const result = await Product.updateMany(filter, updateOperation);
+//     console.log(`${result.modifiedCount} document(s) updated successfully.`);
+// }
+// // update();
+
+
 // const generateRandomProducts = async (count: number = 100) => {
 //     const products = [];
 
 //     for (let i = 0; i < count; i++) {
 //         const product = {
 //             name: faker.commerce.productName(),
-//             photo: "uploads\\5ba9bd91-b89c-40c2-bb8a-66703408f986.png",
+//             photo: "uploads\5ba9bd91-b89c-40c2-bb8a-66703408f986.png",
 //             price: faker.commerce.price({ min: 1500, max: 80000, dec: 0 }),
 //             stock: faker.commerce.price({ min: 0, max: 100, dec: 0 }),
 //             category: faker.commerce.department(),

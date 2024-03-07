@@ -36,20 +36,20 @@ export const addCoupon = TryCatch(async (req, res, next) => {
 
 // get Discount Amount Coupon
 export const applyDiscount = TryCatch(async (req, res, next) => {
-    const { coupon } = req.body;
-
-
+    const { coupon } = req.query;
     if (!coupon) {
         return next(new ErrorHandler("Please enter coupon", 400));
     }
-
     const discount = await Coupon.findOne({ code: coupon })
+    if (!discount) {
+        return next(new ErrorHandler("Invalid Coupon", 400));
+    }
+
 
     return res.status(201).json({
         success: true,
         discount: discount?.amount,
         message: `Congratulations you get ₹${discount?.amount} rupees *off`
-
     })
 })
 

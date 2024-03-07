@@ -12,7 +12,7 @@ router.post("/create", createPaymentIntent);
 router.route("/coupon/addCoupon").post(verifyAdmin,addCoupon);
 
 //For applyDiscount - /api/v1/payment/coupon/applyDiscount/?id
-router.route("/coupon/applyDiscount").post(applyDiscount);
+router.route("/coupon/applyDiscount").get(applyDiscount);
 
 //For getAllCoupons - /api/v1/payment/coupon/getAllCoupons?id
 router.route("/coupon/getAllCoupons").get(verifyAdmin,allCoupons);
